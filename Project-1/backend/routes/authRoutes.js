@@ -58,3 +58,91 @@ router.post('/login', async (req, res) => {
 });
 
 module.exports = router;
+
+
+// authRoutes.js
+
+
+// Password reset endpoint
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate and send password reset email
+    const transporter = nodemailer.createTransport({
+      // Configure email transporter (e.g., SMTP, Gmail)
+    });
+
+    const mailOptions = {
+      from: 'your-email@example.com',
+      to: email,
+      subject: 'Password Reset',
+      text: 'Here is your password reset link...'
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending password reset email:', error);
+        return res.status(500).json({ message: 'Error sending password reset email' });
+      }
+      console.log('Password reset email sent:', info.response);
+      res.json({ message: 'Password reset email sent' });
+    });
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+module.exports = router;
+
+
+// authRoutes.js
+
+
+// Email verification endpoint
+router.post('/verify-email', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Find user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate and send verification email
+    const transporter = nodemailer.createTransport({
+      // Configure email transporter (e.g., SMTP, Gmail)
+    });
+
+    const mailOptions = {
+      from: 'your-email@example.com',
+      to: email,
+      subject: 'Email Verification',
+      text: 'Here is your email verification link...'
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending verification email:', error);
+        return res.status(500).json({ message: 'Error sending verification email' });
+      }
+      console.log('Verification email sent:', info.response);
+      res.json({ message: 'Verification email sent' });
+    });
+  } catch (error) {
+    console.error('Error verifying email:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+module.exports = router;
+
+
