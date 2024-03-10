@@ -9,11 +9,11 @@ const mongoURI = 'mongodb://localhost:27017';
 const Product = require('./models/product');
 const User = require('./models/user');
 const Order = require('./models/order');
-const Category = require('./models/category');
-const Cart = require('./models/cart');
-const Review = require('./models/review');
-const ShippingMethod = require('./shippingMethod');
-const PaymentMethod = require('./paymentMethod');
+// const Category = require('./models/category');
+// const Cart = require('./models/cart');
+// const Review = require('./models/review');
+// const ShippingMethod = require('./shippingMethod');
+// const PaymentMethod = require('./paymentMethod');
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
